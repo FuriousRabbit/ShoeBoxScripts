@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# DEFINE THE NUMBER OF TARGETS WE HAVE HERE
+num=2
+
+# FIND THE NUMBER OF ACTIVE ISCSI SESSIONS
+sessions=$(sudo /bin/netstat -antp | grep iscsid | wc -l)
+targets=$(sudo /sbin/iscsiadm -m node | awk '{ printf( "%s", $0 ); if ( $0 ~ /^$/ ){ printf("\n"); } }')
+
+# SIMPLE STATEMENT TO CHECK IF OUR TARGETS ARE CONNECTED
+# THE STATEID DECLARES THE WARNING LEVEL
+if [ $sessions -eq $num ]
+        then
+                echo "OK $num Targets: $targets"
+		stateid=0
+elif [ $sessions -lt $num ]
+	then
+		echo "Warning: All targets are not connected!"
+		stateid=1
+elif [ $sessions -eq 0 ]
+	then
+                echo "Critical: No iscsi targets connected!"
+		stateid=2
+
+fi
+
+exit $stateid
