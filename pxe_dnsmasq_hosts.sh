@@ -5,7 +5,8 @@
 #                                                       #
 # Written by: Robbie Reese                              #
 # Changes:                                              #
-# v0.1      - 11/02/2012   - Inital Release             #
+# v0.1      - 11/01/2012   - Inital Release             #
+# v0.2      - 11/02/2012   - Added MAC check            #
 #########################################################
 
 #Get the variables to add to the dnsmasq.conf file.

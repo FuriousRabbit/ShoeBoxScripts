@@ -1,4 +1,13 @@
 #!/bin/bash
+#########################################################
+# Script to verify the backup and transfer of a tar.gz  #
+# file.				                        #
+#                                                       #
+# Written by: Robbie Reese                              #
+# Changes:                                              #
+# v0.1      - 07/02/2004   - Inital Release             #
+#########################################################
+
 #Script to verify the backup and 
 #transfer of a tar.gz file.
 

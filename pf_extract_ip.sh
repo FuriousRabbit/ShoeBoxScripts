@@ -1,6 +1,11 @@
 #!/bin/sh
-#Script to extract IP's from a pfctl table 
-#Created by: Robbie Reese 10/24/06
+#########################################################
+#Script to extract IP's from a OpenBSD pf table 	#
+#                                                       #
+# Written by: Robbie Reese                              #
+# Changes:                                              #
+# v0.1      - 10/24/2006   - Inital Release             #
+#########################################################
 
 #SPECIFY THE PF TABLE NAME
 TABLE=kiddies
