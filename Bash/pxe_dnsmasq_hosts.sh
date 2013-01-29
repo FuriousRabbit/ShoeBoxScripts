@@ -5,15 +5,14 @@
 #                                                       #
 # Written by: Robbie Reese                              #
 # Changes:                                              #
-# v0.1      - 11/01/2012   - Inital Release             #
-# v0.2      - 11/02/2012   - Added MAC check            #
+# v0.1      - 11/02/2012   - Inital Release             #
 #########################################################
 
 #Get the variables to add to the dnsmasq.conf file.
 
 	echo -ne "\e[1;37;40mEnter the hostname: \e[0m"
 		read -e hostname
-	echo -ne "\e[1;37;40mEnter the MAC address: \e[0m"
+	echo -ne "\e[1;37;40mEnter the MAC address(00:11:22:33:44:55): \e[0m"
 		read -e macaddress
 	echo -ne "\e[1;37;40mEnter the IP address: \e[0m"
 		read -e ipaddress

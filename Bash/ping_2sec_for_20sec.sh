@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #########################################################
 # Simple script to ping 3 hosts for 20 seconds with 2   #
 # second breaks between the pings.                      #
