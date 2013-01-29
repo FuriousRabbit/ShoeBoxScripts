@@ -12,7 +12,7 @@ RAIDSTATUS=`/usr/bin/bpsh -ap /sbin/mdadm --detail /dev/md0 | egrep "Failed Devi
 TMPFILELOC=/tmp/computenode.tmp
 	if [ -f $TMPFILELOC ]
 		then
-			mailx -s "Compute Node Raid Status" jrreese@cnmc.org < $TMPFILELOC
+			mailx -s "Compute Node Raid Status" email@myorg.com < $TMPFILELOC
 			rm -f $TMPFILELOC
 		else
 			exit
