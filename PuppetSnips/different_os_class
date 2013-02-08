@@ -1,0 +1,15 @@
+
+# manage autofs configuration
+
+class autofs {
+                 case $operatingsystem   {
+                        centos: {         
+                                $package_name = 'nfs-utils'
+                                $file_location = '/etc/sysconfig/autofs'
+                                }                                       
+
+                        ubuntu: {
+                                $package_name = 'nfs-common'
+                                $file_location = '/etc/default/autofs'
+                                }                                     
+                                        }                             

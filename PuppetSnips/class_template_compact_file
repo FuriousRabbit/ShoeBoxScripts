@@ -1,0 +1,53 @@
+class workstation
+         {
+
+    $stationpackages = [ 'nis', 'autofs', 'ntp', 'nfs-common' ]
+    $stationservices = [ 'puppet', 'nis', 'autofs', 'ntp' ]
+
+    service
+         { $stationservices:
+                ensure => 'running',
+                enable => 'true';
+         }
+
+    package
+         { $stationpackages:
+                ensure => 'installed';
+         }
+
+    File
+         {
+                ensure  => 'present',
+                owner   => 'root',
+                group   => 'root',
+                mode    => '0644',
+         }
+
+    file
+         { "/etc/nsswitch.conf":
+                source  => "puppet:///modules/laptop/etc/nsswitch.conf",
+                notify  => Service[nis];
+          "/etc/auto.master":
+                source  => "puppet:///modules/autofs/etc/auto.master",
+                notify  => Service[autofs];
+          "/etc/auto.sge":
+                source  => "puppet:///modules/autofs/etc/auto.sge",
+                notify  => Service[autofs];
+          "/etc/puppet/puppet.conf":
+                content => template("laptop/puppet_config.erb"),
+                notify  => Service[puppet];
+          "/etc/gdm/gdm.conf":
+                source  => "puppet:///modules/laptop/etc/gdm/gdm.conf";
+          "/etc/auto.data":
+                source  => "puppet:///modules/autofs/etc/auto.data",
+                notify  => Service[autofs],
+                mode    => '700';
+         }
+
+     user
+         { 'randomuser':
+                ensure   => 'present',
+                password => 'cryptpasswordhere';
+         }
+
+}
