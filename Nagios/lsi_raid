@@ -1,0 +1,21 @@
+#!/bin/bash
+#########################################################
+# Small nagios script to check the status of a LSI      #
+# raid. This script relies upon the installation of     #
+# mpt-status which can be downloaded from:              #
+# http://sisyphus.ru/en/srpm/Branch4/mpt-status/get     #
+#                                                       #
+# Written by: Robbie Reese                              #
+#########################################################
+
+
+STAT=`/usr/sbin/mpt-status -s -i 4`
+	
+	if [ `mpt-status -s -i 4 | grep ONLINE | wc -l` -eq 2 ];
+		then
+			echo "Array OK:" $STAT
+			exit 0
+		else
+			echo "Array ERROR:" $STAT
+			exit 2
+	fi
