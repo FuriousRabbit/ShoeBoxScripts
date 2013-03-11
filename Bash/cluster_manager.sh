@@ -5,7 +5,7 @@
 # Written by: Robbie Reese                              #
 # Changes:                                              #
 # v0.1      - 01/02/2013   - Inital Release             #
-# v0.2      - 01/02/2013   - Added reboot               #
+# v0.2      - 01/12/2013   - Added reboot               #
 #########################################################
           
 
