@@ -77,8 +77,8 @@ CHECK_HA=$( $PLUGINS/check_clustat | awk -F ":" '{ print $1 }' )
 
 ##CHECK IF HA LVM PARTITION IS MOUNTED AND WHAT HOST IT'S MOUNTED ON
 SERVICE_HALVM="HA LVM [/backup]"
-CHECK_MOUNT=$( grep -c "/backup" /proc/mounts )
-CHECK_NODE=$( clustat | grep nfs_srv | awk -F " " '{ print $2 }' )
+CHECK_MOUNT=$( /bin/grep -c "/backup" /proc/mounts )
+CHECK_NODE=$( /usr/sbin/clustat | /bin/grep nfs_srv | awk -F " " '{ print $2 }' )
 	if [[ $CHECK_MOUNT == 1 ]]
 	   then
 		HALVM_TEXT=$( $PLUGINS/check_disk -w 10% -c 5% -p /backup )
