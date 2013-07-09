@@ -1,0 +1,1 @@
+for i in $(cat /var/log/httpd/wiki.localdomain-access_log  | awk '{ print $1 }' | sort -u); do echo -n "$i: " && egrep "$i" /var/log/httpd/wiki.localdomain-access_log | wc -l; done
