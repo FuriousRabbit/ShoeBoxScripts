@@ -35,6 +35,7 @@ else:
     systemp = systempline.split();
     # Convert the temperature to a float and store as an integer
     sysfloat = float(systemp[3])
+    # Convert the celsius readout to farenheit
     sysvalue = 9.0/5.0 * int(sysfloat) + 32
     sysvalue = int(sysvalue)
     # Check if the system temperature is above our limits
