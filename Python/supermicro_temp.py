@@ -7,16 +7,14 @@
 # Written by: Robbie Reese                              #
 # Changes:                                              #
 # v0.1      - 07/09/2013   - Inital Release             #
+# v0.2      - 07/10/2013   - Refined Temp Searching     #
 #########################################################
 
-
-import sys
-import os
-import subprocess
-import string
+import sys, os, subprocess, string 
 
 status = { 'OK' : 0 , 'WARNING' : 1, 'CRITICAL' : 2 , 'UNKNOWN' : 3}
-
+# Icinga doesn't like the formatting of the degree symbol, leave it off
+#degree_sign= u'\N{DEGREE SIGN}'
 if len(sys.argv) == 1:
     print "Useage: supermicro_temp.py <hostname> <username> <password> <warn> <crit>"
 else:
@@ -31,20 +29,21 @@ else:
     result = p.communicate()[0]
     # Create a list containing each line from the sensor information gathered from ipmi
     sum = string.split(result, '\n')
-    systempline = sum[2]
-    systemp = systempline.split();
-    # Convert the temperature to a float and store as an integer
-    sysfloat = float(systemp[3])
-    # Convert the celsius readout to farenheit
-    sysvalue = 9.0/5.0 * int(sysfloat) + 32
-    sysvalue = int(sysvalue)
-    # Check if the system temperature is above our limits
-    if sysvalue >= crit_limit :
-	print 'CRITICAL: Host Temperature is %s'% (sysvalue)
-	sys.exit(status['CRITICAL'])
-    elif sysvalue >= warn_limit :
-	print 'WARNING: Host Temperature is %s'% (sysvalue)
-	sys.exit(status['WARNING'])
-    else:
-	print 'Host Temperature is OK'
-	sys.exit(status['OK'])
+    # Search the sensor information for the System Temp line
+    for systemline in sum:
+	if "System Temp" in systemline:
+  	    systemp = systemline.split();	    
+    	    # Convert the temperature to a float convert the temperature from celsius to farenheit, convert to integer
+            sysfloat = float(systemp[3])
+            sysvalue = 9.0/5.0 * int(sysfloat) + 32
+	    sysvalue = int(sysvalue)
+	    # Check if the system temperature is above our limits
+	    if sysvalue >= crit_limit :
+        	print 'CRITICAL: Host Temperature is %s'% (sysvalue)
+        	sys.exit(status['CRITICAL'])
+    	    elif sysvalue >= warn_limit :
+	        print 'WARNING: Host Temperature is %s'% (sysvalue)
+        	sys.exit(status['WARNING'])
+    	    else:
+        	print 'Host Temperature is %s'% (sysvalue)
+        	sys.exit(status['OK'])
