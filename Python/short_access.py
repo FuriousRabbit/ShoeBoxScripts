@@ -1,4 +1,14 @@
 #!/bin/env python
+#########################################################
+# This program creates a random numbered folder and     #
+# converts a specified file into a random uuid. This    #
+# folder and file are then set to be removed after 2    #
+# hours.                                                #
+#                                                       #
+# Written by: Robbie Reese                              #
+# Changes:                                              #
+# v0.1      - 07/17/2013   - Inital Release             #
+#########################################################
 
 import os, shutil, uuid, sys
 from random import randint
