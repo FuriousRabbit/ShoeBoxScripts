@@ -42,7 +42,7 @@ shutil.move(z, dirpath)
 
 #Create a cronjob that deletes the random directory/random file and the cronjob itself after 2 hours
 cjob = open(cronfile, "w")
-cjob.write("* */2 * * * root /bin/rm -rf %s && /bin/rm %s"% (dirpath, cronfile))
+cjob.write("00 */3 * * * root /bin/rm -rf %s && /bin/rm %s"% (dirpath, cronfile))
 cjob.write("\n")
 cjob.close()
 
