@@ -8,6 +8,13 @@ _lxmr1="/data/archive/pfiles/lxmr1"
 _lxmr2="/data/archive/pfiles/lxmr2"
 _lxmr3="/data/archive/pfiles/lxmr3"
 
+#Show uasge
+if [ $# = 0 ] ; then 
+    echo "Syntax:";
+    echo
+    echo "pfile_clean.sh <spectro> or <pbtc> or <remove>"
+    exit
+fi;
 #Verify the script is being run from one of the allowed directories
 if [ $_lxmr1 != $(pwd) ]
 then
@@ -101,7 +108,7 @@ remove () {
 	read -r -p "WARNING: All folders, except 'QA' and 'PBTC' will be removed!. Are you sure? [Y/n] " _response
 	case $_response in
 		[yY][eE][sS]|[yY])	 
-			echo "$(find . -maxdepth 1 -type d | sed 's/.\///g' | sed 's/\.//g' | grep -v "QA" | grep -v "PBTC" | sed '/^$/d')"
+			rm -rf "$(find . -maxdepth 1 -type d | sed 's/.\///g' | sed 's/\.//g' | grep -v "QA" | grep -v "PBTC" | sed '/^$/d')"
 			echo -ne "\nAll directories removed. \n\n"
 		;;
 				*)
@@ -121,8 +128,3 @@ case "$1" in
                 remove
         ;;
 esac
-
-
-
-
-
