@@ -8,13 +8,13 @@ _lxmr1="/data/archive/pfiles/lxmr1"
 _lxmr2="/data/archive/pfiles/lxmr2"
 _lxmr3="/data/archive/pfiles/lxmr3"
 
-#Show uasge
 if [ $# = 0 ] ; then 
     echo "Syntax:";
     echo
     echo "pfile_clean.sh <spectro> or <pbtc> or <remove>"
     exit
 fi;
+
 #Verify the script is being run from one of the allowed directories
 if [ $_lxmr1 != $(pwd) ]
 then
@@ -96,7 +96,7 @@ pbtc () {
         cd PBTC
         cat $_pbtcsrt | sed 's/^/./' > /tmp/pbtc_src.tmp
         cat $_pbtcsrt | cut -c 3-13 > /tmp/pbtc_dest.tmp
-        pr -m -t /tmp/pbtc_src.tmp /tmp/spectro_dest.tmp | sed 's/^/cp /' > /tmp/pbtc_c.sh
+        pr -m -t /tmp/pbtc_src.tmp /tmp/pbtc_dest.tmp | sed 's/^/cp /' > /tmp/pbtc_c.sh
         chmod +x /tmp/pbtc_c.sh
         rm /tmp/pbtc_src.tmp /tmp/pbtc_dest.tmp
         #Execute the script
