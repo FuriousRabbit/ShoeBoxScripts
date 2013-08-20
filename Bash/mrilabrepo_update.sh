@@ -8,11 +8,11 @@
 # Please see /etc/cron.d/mrilabrepo.			#							
 #########################################################
 
-LOCALDIR="/data/mril0/CentOS/6.3"
+_localdir="/data/mril0/CentOS/6.3"
 
-if [ -d $LOCALDIR ]
+if [ -d $_localdir ]
 	then
-		cd $LOCALDIR
+		cd $_localdir
 		reposync .
 		createrepo --update .
 	else

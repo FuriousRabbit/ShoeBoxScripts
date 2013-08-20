@@ -8,12 +8,12 @@
 # 				                        #
 #########################################################
 
-RAIDSTATUS=`/usr/bin/bpsh -ap /sbin/mdadm --detail /dev/md0 | egrep "Failed Devices" > /tmp/computenode.tmp`
-TMPFILELOC=/tmp/computenode.tmp
-	if [ -f $TMPFILELOC ]
+_raidstatus=`/usr/bin/bpsh -ap /sbin/mdadm --detail /dev/md0 | egrep "Failed Devices" > /tmp/computenode.tmp`
+_tmpfileloc=/tmp/computenode.tmp
+	if [ -f $_tmpfileloc ]
 		then
-			mailx -s "Compute Node Raid Status" email@myorg.com < $TMPFILELOC
-			rm -f $TMPFILELOC
+			mailx -s "Compute Node Raid Status" email@myorg.com < $_tmpfileloc
+			rm -f $_tmpfileloc
 		else
 			exit
 	fi
