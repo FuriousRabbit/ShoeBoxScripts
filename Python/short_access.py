@@ -14,8 +14,11 @@ import os, shutil, uuid, sys
 from random import randint
 
 #Enter your file and folder details here
+##topdir is the directory the random directory will be created in
 topdir = "/www/pulnet.com/client/"
+##file is the file you want to randomize
 file = "LogmeInSetup.exe"
+##cronfile is the name of the cronfile to create
 cronfile = "/etc/cron.d/tmplink"
 
 #Function to create a directory from a random set of numbers
