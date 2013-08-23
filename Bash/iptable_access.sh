@@ -1,4 +1,23 @@
 #!/bin/bash
+#########################################################
+# This script allows temporary access to specific       #       
+# network blocks from single nodes via iptables. It's   #       
+# best to use 'at' to schedule the times access will be #       
+# be allowed. For example:                              #       
+#                                                       #       
+# > at 14:05                                            #       
+# > /path/AllowAccess.sh -n 10.54.1.2 -d 137.17.0.0/16  #       
+# > ctrl + d                                            #
+#                                                       #       
+# Next create a job to remove access:                   #       
+# > at 16:05                                            #       
+# > /path/AllowAccess.sh -x remove                      #       
+# > ctrl + d                                            #       
+#                                                       #       
+# Written by: Robbie Reese                              #
+# Changes:                                              # 
+# v0.1      - 10/08/2012   - Inital Release             #
+#########################################################
 
 _iptablefile="/etc/sysconfig/iptables"
 _check_for_line1=$( grep -c "FORWARD 15" $_iptablefile )
@@ -36,14 +55,14 @@ done
 
 if [[ -z "$node" || -z "$destination" ]]
     then
-	 echo -ne "\nUsage:\nAllowAccess.sh -n <node ip allowed access> -d <destination ip block> -x remove\n\n"
+         echo -ne "\nUsage:\nAllowAccess.sh -n <node ip allowed access> -d <destination ip block> -x remove\n\n"
     elif [[ $_check_for_line1 -gt 0 && $_check_for_line2 -gt 0 ]]
-	 then
-	 echo -ne "\nAccess is already set. Remove the access lines in iptables lines 37-39.\n\n"
-	 exit 1
+         then
+         echo -ne "\nAccess is already set. Remove the access lines in iptables lines 37-39.\n\n"
+         exit 1
    else
          sed -i "37i#Temporary access defined below, google access must be allowed" $_iptablefile
          sed -i "38i-I FORWARD 15 -o eth1 -s $node -d 74.125.0.0/16 -m state --state NEW,ESTABLISHED -j ACCEPT" $_iptablefile
          sed -i "39i-I FORWARD 16 -o eth1 -s $node -d $destination -m state --state NEW,ESTABLISHED -j ACCEPT" $_iptablefile
-	 service iptables restart
+         service iptables restart
 fi
