@@ -1,3 +1,0 @@
-<% @client_mount.each do |clientmount| -%>
-<%= clientmount %>
-<% end -%>
