@@ -1,0 +1,24 @@
+# /etc/puppet/manifests/classes/mounts.pp
+
+class mounts {
+# node-07 and node-08 don't have a 10gb NIC, so we must use the 1g NIC.
+        if (( $hostname == "node-07") or ( $hostname == "node-08")) {
+        mount
+           { "/opt":
+                device  => "nfs0:/export/SSD/software",
+                fstype  => "nfs",
+                ensure  => "mounted",
+                options => "defaults",
+                atboot  => "true",
+                                   }
+}       else                       {
+        mount
+          {  "/opt":
+                device  => "nfs0-teng:/export/SSD/software",
+                fstype  => "nfs",
+                ensure  => "mounted",
+                options => "defaults",
+                atboot  => "true",
+                                   }
+        }
+}
