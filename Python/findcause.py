@@ -10,13 +10,13 @@ if len(sys.argv) == 1:
     print "\nUsage: findcause.py [logfile] [start_time] [end_time]"
     print "Example: findcause.py /var/log/sa/sa04 10:00:00 14:30:00\n"
 else:
-    #get the required input
+    #get the required arguments [logfile] [start_time] [end_time]
     logfile_path = sys.argv[1]
     start_time = sys.argv[2]
     end_time = sys.argv[3]
-    #define the packages we want to make sure are installed
+    #define the packages we want installed
     packagesrereq = ["sysstat", "atop"]
-    #function to check if the requried packages are installed
+    #function to check if the packages are installed
     def check_pkg (pkglist):
         yb = yum.YumBase()
     	missing_packages = set()
@@ -55,7 +55,7 @@ else:
         output = sar.communicate()[0]
         idle = string.split(output[1:-1], '\n')
         return idle
-    #join our date and cpuidle list information together; highlighting the lowest idle
+    #get the cpuload statistics as well as the load statistics and higlight areas of interest
     cpuidle = sar_interface("cpuidle")[1:-1]
     busycpu = min(cpuidle)
     date = sar_interface("idledate")[1:]
@@ -68,15 +68,6 @@ else:
     for n,i in enumerate(load):
         if i==busyload:
             load[n]='\033[93m' + busyload + '\033[0m'
-    #print "\nCPU Idle Percentages:"
-    #for x,y in zip(date, cpuidle):
-    # 	print '%s      %s '% (x, y)
-    #print "\nLoad Averages:"
-    #for n,i in enumerate(load):
-    #    if i==busyload:
-    #        load[n]='\033[93m' + busyload + '\033[0m'
-    #for x,y in zip(loaddate, load):
-    #    print '%s      %s '% (x, y)
     print "\nCPU Idle Percent         Load Averages"
     print "__________________       ___________________________"
     for a,b,c,d in zip(date, cpuidle, loaddate, load):
